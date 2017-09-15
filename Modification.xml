@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!DOCTYPE modification SYSTEM "http://www.simplemachines.org/xml/modification">
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/**
+* @package modification file for Like Dislike
+* @version 2.0.5
+* @author rebirthtobi (Tobi Taiwo) (http://github.com/rebirthtobi)
+* @copyright Copyright (c) 2014, Tobi Taiwo
+* @license https://www.gnu.org/licenses/gpl-3.0.html
+*
+**/
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+<modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
+	<id>mrcheckmateman:like_dislike</id>
+	<version>1.0</version>
+
+	<file name="$boarddir/index.php">
+		<operation>
+			<search position="before">
+				<![CDATA[	
+					'admin' => array('Admin.php', 'AdminMain'),
+				]]>
+			</search>
+			<add>
+				<![CDATA[					
+					'likepost' => array('RemoveTopic.php', 'DoLikePost'),
+					'dislikepost' => array('RemoveTopic.php', 'DoUnlikePost'),
+				]]>
+			</add>
+		</operation>
+	</file>
+	
+	<file name="$themedir/Display.template.php">
+		<operation>
+			<search position="after"><![CDATA[// Can we restore topics?]]></search>
+			<add>
+                <![CDATA[
+                    if (!$user_info['is_guest']){
+                        if($message['likedislikepost']['howmany'] == 1){
+                            echo '
+                                <li style="background: url(', $settings['images_url'], '/post/thumbup.gif) no-repeat 0 0;"><a>(',$message['likedislikepost']['likes'],') </a></li>
+                                <li style="background: url(', $settings['images_url'], '/post/thumbdown.gif) no-repeat 0 0;"><a href="', $scripturl, '?action=dislikepost;topic=', $context['current_topic'], '.' . $context['start'], ';m=', $message['id'], ';', $context['session_var'], '=', $context['session_id'], '">(',$message['likedislikepost']['dislikes'],')</a></li>';
+		                }
+		                else if(is_null($message['likedislikepost']['howmany'])){
+		                    echo '
+                                <li style="background: url(', $settings['images_url'], '/post/thumbup.gif) no-repeat 0 0;"><a href="', $scripturl, '?action=likepost;topic=', $context['current_topic'], '.' . $context['start'], ';m=', $message['id'], ';', $context['session_var'], '=', $context['session_id'], '">(',$message['likedislikepost']['likes'],')</a></li>
+                                <li style="background: url(', $settings['images_url'], '/post/thumbdown.gif) no-repeat 0 0;"><a href="', $scripturl, '?action=dislikepost;topic=', $context['current_topic'], '.' . $context['start'], ';m=', $message['id'], ';', $context['session_var'], '=', $context['session_id'], '">(',$message['likedislikepost']['dislikes'],')</a></li>';
+		                }
+		                else{
+		                    echo '
+                                <li style="background: url(', $settings['images_url'], '/post/thumbup.gif) no-repeat 0 0;"><a href="', $scripturl, '?action=likepost;topic=', $context['current_topic'], '.' . $context['start'], ';m=', $message['id'], ';', $context['session_var'], '=', $context['session_id'], '">(',$message['likedislikepost']['likes'],')</a></li>
+                                <li style="background: url(', $settings['images_url'], '/post/thumbdown.gif) no-repeat 0 0;"><a>(', $message['likedislikepost']['dislikes'],')</a></li>';
+		                }
+		            }
+			    ]]>
+            </add>
+		</operation>
+	</file>
+</modification>

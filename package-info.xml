@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/**
+* @package package-info file for Like Dislike
+* @version 2.0.5
+* @author rebirthtobi (Tobi Taiwo) (http://github.com/rebirthtobi)
+* @copyright Copyright (c) 2014, Tobi Taiwo
+* @license https://www.gnu.org/licenses/gpl-3.0.html
+*
+**/
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+<!DOCTYPE package-info SYSTEM "http://www.simplemachines.org/xml/package-info">
+<package-info xmlns="http://www.simplemachines.org/xml/package-info" xmlns:smf="http://www.simplemachines.org/">
+	<id>mrcheckmateman:like_dislike</id>
+	<name>Like Dislike</name>
+	<version>1.0</version>
+	<type>modification</type>
+
+	<install for="2.0 - 2.0.99">
+		<readme type="file" parsebbc="true">README.md</readme>
+		<database>install.php</database>
+		<modification format="xml" type="file">Modification.xml</modification>
+	</install>
+
+	<uninstall>
+		<modification reverse="true">Modification.xml</modification>
+		<redirect url="$scripturl?action=admin;area=packages;sa=browse" timeout="1000" />
+	</uninstall>
+</package-info>
